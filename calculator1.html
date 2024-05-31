@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url(https://png.pngtree.com/thumb_back/fh260/background/20200703/pngtree-mathematics-education-calculator-ruler-hand-drawn-background-image_340649.jpg) no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background-color:grey;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 320px;
+      /*margin-right:585px;*/
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      margin-bottom: 15px;
+      font-size: 18px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .button-row input[type="button"] {
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      flex: 1;
+      margin: 5px;
+      color: white;
+    }
+    .button-row input[type="button"]:nth-child(odd) {
+      background-color:#205b7a;;
+    }
+    .button-row input[type="button"]:nth-child(odd):hover {
+      background-color: blue;
+    }
+    .button-row input[type="button"]:nth-child(even) {
+      background-color: #205b7a;
+    }
+    .button-row input[type="button"]:nth-child(even):hover {
+      background-color: pink;
+    }
+    .operator-row input[type="button"] {
+      background-color: #ffc107;
+      color: black;
+    }
+    .operator-row input[type="button"]:hover {
+      background-color: #e0a800;
+    }
+    .control-row input[type="button"] {
+      background-color: #28a745;
+    }
+    .control-row input[type="button"]:hover {
+      background-color: #218838;
+    }
+    .control-row input[type="button"]:last-child {
+      background-color: #dc3545;
+    }
+    .control-row input[type="button"]:last-child:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Calculator</h1>
+    <input type="text" id="result" placeholder="Result" readonly>
+    <div class="button-row">
+      <input type="button" value="1" onclick="appendNumber(1)">
+      <input type="button" value="2" onclick="appendNumber(2)">
+      <input type="button" value="3" onclick="appendNumber(3)">
+      <input type="button" value="4" onclick="appendNumber(4)">
+      <input type="button" value="5" onclick="appendNumber(5)">
+      <input type="button" value="6" onclick="appendNumber(6)">
+      <input type="button" value="7" onclick="appendNumber(7)">
+      <input type="button" value="8" onclick="appendNumber(8)">
+      <input type="button" value="9" onclick="appendNumber(9)">
+      <input type="button" value="0" onclick="appendNumber(0)">
+    </div>
+    <div class="button-row operator-row">
+      <input type="button" value="+" onclick="setOperation('+')">
+      <input type="button" value="-" onclick="setOperation('-')">
+      <input type="button" value="*" onclick="setOperation('*')">
+      <input type="button" value="/" onclick="setOperation('/')">
+    </div>
+    <div class="button-row control-row">
+      <input type="button" onclick="calculate()" value="=">
+      <input type="button" onclick="reset()" value="C">
+    </div>
+  </div>
+  <script type="text/javascript">
+    let currentInput = '';
+    let firstNumber = null;
+    let operator = null;
+
+    function appendNumber(number) {
+      currentInput += number;
+      document.getElementById('result').value = currentInput;
+    }
+
+    function setOperation(op) {
+      if (currentInput === '') return;
+      firstNumber = parseFloat(currentInput);
+      operator = op;
+      currentInput = '';
+      document.getElementById('result').value = '';
+    }
+
+    function calculate() {
+      if (firstNumber === null || operator === null || currentInput === '') return;
+      const secondNumber = parseFloat(currentInput);
+      let result;
+      switch (operator) {
+        case '+':
+          result = firstNumber + secondNumber;
+          break;
+        case '-':
+          result = firstNumber - secondNumber;
+          break;
+        case '*':
+          result = firstNumber * secondNumber;
+          break;
+        case '/':
+          result = firstNumber / secondNumber;
+          break;
+        default:
+          result = 'Error';
+      }
+      document.getElementById('result').value = result;
+      firstNumber = null;
+      operator = null;
+      currentInput = '';
+    }
+
+    function reset() {
+      currentInput = '';
+      firstNumber = null;
+      operator = null;
+      document.getElementById('result').value = '';
+    }
+  </script>
+</body>
+</html>
